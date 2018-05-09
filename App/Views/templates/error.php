@@ -63,7 +63,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Erreur 404</h1>
-              <span class="subheading">Erreur 404</span>
+              <span class="btn btn-warning">Erreur 404</span>
             </div>
           </div>
         </div>

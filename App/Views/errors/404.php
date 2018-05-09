@@ -1,0 +1,1 @@
+<p class="btn btn-warning">Erreur 404 - Page introuvable</p>

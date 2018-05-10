@@ -1,6 +1,7 @@
 <?php
 
 require('App/Controllers/frontend.php');
+//require __DIR__."App/Controllers/frontend.php";
 
 try
 {

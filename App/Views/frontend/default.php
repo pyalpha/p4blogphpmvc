@@ -21,7 +21,7 @@
     <!-- Custom styles for this template -->
     <link href="./public/css/clean-blog.min.css" rel="stylesheet">
 
-    <title><?=App::getInstance() ->title; ?></title>
+    <title><?= $title; ?></title>
 
   </head>
 

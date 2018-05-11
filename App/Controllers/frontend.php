@@ -21,3 +21,16 @@ function post()
 
     require('App/Views/frontend/postView.php');
 }
+
+function addComment()
+{
+    $commentManager = new CommentManager();
+    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+
+    if ($affectedLines == false) {
+        throw new Exceptio('Impossible d\'ajouter le commentaire !');
+    }
+    else {
+        header('Location: index.php?action=post&id' . $postId);
+    }
+}

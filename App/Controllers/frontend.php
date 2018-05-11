@@ -1,6 +1,7 @@
 <?php
 
 require_once('App/Models/PostManager.php');
+require_once('App/Models/CommentManager.php');
 
 function listPosts()
 {
@@ -8,14 +9,15 @@ function listPosts()
     $posts = $postManager->getPosts();
 
     require('App/Views/frontend/listPostsView.php');
-    //require __DIR__."/App/Views/frontend/listPostsView.php";
+    
 }
 
 function post()
 {
     $postManager = new PostManager();
+    $commentManager = new CommentManager();
     $post = $postManager->getPost($_GET['id']);
+    $comment = $commentManager->getComments($_GET['id']);
 
     require('App/Views/frontend/postView.php');
-    //require __DIR__."../App/Views/frontend/postView.php";
 }

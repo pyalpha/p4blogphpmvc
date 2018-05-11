@@ -20,6 +20,14 @@ class PostManager extends Manager
                $post = $query->fetch();
                return $post;
     }
+
+    public function getPostsPreviews()
+    {
+        $db = $this->dbConnect();
+        $query = $db->query('SELECT * FROM posts');
+        return $query;
+    }
+
 }
 
 

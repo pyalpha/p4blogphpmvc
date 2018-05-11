@@ -6,8 +6,8 @@ ob_start();
 ?>
 
 <div class="news">
-    <h3><?php echo $post['title']; ?></h3>
-    <p><?php  echo $post['content']; ?></p>
+    <h1><?= $post['title']; ?></h1>
+    <p><?= $post['content']; ?></p>
 </div>
 
 <h2>Commentaires</h2>

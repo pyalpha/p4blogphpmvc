@@ -43,6 +43,10 @@ try
         }
 
     }
+    elseif (isset($_GET['admin'])) 
+    {
+        adminListPosts();
+    }
     else 
     {
         listPosts();

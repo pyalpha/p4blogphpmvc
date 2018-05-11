@@ -34,3 +34,11 @@ function addComment()
         header('Location: index.php?action=post&id' . $postId);
     }
 }
+
+function adminListPost()
+{
+    $postManager = new PostManager();
+    $posts = $postManager->getPostsPreviews();
+
+    require('/App/Views/backend/adminListPostsView.php');
+}

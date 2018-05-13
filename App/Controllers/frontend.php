@@ -77,10 +77,27 @@ function updatePost($postId, $postContent)
 	$affectedLines = $postManager->PostUpdatedPost($postId, $postContent);
 	if ($affectedLines == false)
 	{
-		throw new Exception('Erreur, affected lines vaut false');
+		throw new Exception('Erreur, lors de la mise à jour du post en base de données.');
 	}
 	else
 	{
 		header('Location:index.php?acces=admin');
+	}
+}
+
+function removePost($checked_posts_id)
+{
+	$postManager = new PostManager();
+	foreach ($checked_posts_id as $postId)
+	 {
+		$affectedLines = $postManager->deletePost($postId);
+		if ($affectedLines == false)
+		{
+			throw new Exception('Erreur lors de la supression du ou des posts en base de données.');
+		}
+		else
+		{
+			header('Location:index.php?acces=admin');
+		}
 	}
 }

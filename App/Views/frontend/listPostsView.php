@@ -7,7 +7,7 @@ $title = 'Jean Forteroche';
 <?php ob_start(); ?>
         <h1>Le blog de Jean</h1>
         <?php 
-        while ($data = $post->fetch()) {
+        while ($data = $posts->fetch()) {
             ?>
                  <div class="new">
                      <h3>
@@ -23,7 +23,7 @@ $title = 'Jean Forteroche';
                  </div>
             <?php
         }
-$post->closeCursor(); // fin de la requette
+$posts->closeCursor(); // fin de la requette
 
 $content = ob_get_clean(); //le contenu du view
 require('default.php'); // appele à la template gabarit

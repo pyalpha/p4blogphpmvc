@@ -10,10 +10,9 @@ while($post = $posts->fetch())
 {
     ?>
     <div class="news">
-        <h3><?= htmlspecialchars($post['title']) ?></h3>
-        <p><?= htmlspecialchars($post['content']) ?></p>
-        <span><?= htmlspecialchars($post['creation_date']) ?></span>
-        <a href="#">Modifier</a>
+        <?= $post['content']; ?>
+        <span><?= 'Le ' . $post['creation_date'] ?> </span>
+        <a href="index.php?action=edit&id=<?= $post['id']; ?>">Modifier</a>
     </div>
 
     <?php

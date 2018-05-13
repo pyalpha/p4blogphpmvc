@@ -1,7 +1,11 @@
 <?php
 
+//namespace App\Controllers;
+
 require_once('App/Models/PostManager.php');
 require_once('App/Models/CommentManager.php');
+
+
 
 function listPosts()
 {
@@ -41,4 +45,24 @@ function adminListPost()
     $posts = $postManager->getPostsPreviews();
 
     require('/App/Views/backend/adminListPostsView.php');
+}
+
+function editPost()
+{
+	$postManager = new PostManager();
+	$postContent = $postManager->getContentOfEditedPost($_GET['id']);
+	require('view/backend/editPostView.php');
+}
+function updatePost($postId, $postContent)
+{
+	$postManager = new PostManager();
+	$affectedLines = $postManager->PostUpdatedPost($postId, $postContent);
+	if ($affectedLines == false)
+	{
+		throw new Exception('Erreur, affected lines vaut false');
+	}
+	else
+	{
+		header('Location:index.php?acces=admin');
+	}
 }

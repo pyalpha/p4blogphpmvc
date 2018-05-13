@@ -40,6 +40,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="./public/js/clean-blog.min.js"></script>
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
 
   </body>
 

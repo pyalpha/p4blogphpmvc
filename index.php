@@ -42,10 +42,49 @@ try
 			}
         }
 
+        elseif($_GET['action'] == 'edit') 
+        {
+            if(isset($_GET['id']) && $_GET['id'] > 0)
+            {
+                editPost();
+            }
+            else 
+            {
+                throw new Exception("Erreur : aucun identifiant de billet envoyé !\nImpossible d'editer le message.");
+            }
+        }
+
+        elseif ($_GET['action'] == 'update_post') 
+        {
+            if (isset($_GET['id']) && $_GET['id'] > 0) 
+            {
+                if (!empty($_POST['articleContent']) && !empty($_POST['articleTitle'])) 
+                {
+                    updatePost($_GET['id'], $_POST['articleContent']);
+                }
+                else 
+                {
+                    throw new Exception('Erreur : tous les champs ne sont pas remplis !');
+                }
+            }
+            else 
+            {
+                throw new Exception("Erreur : aucun identifiant de billet envoyé !\nImpossible d'editer le message.");
+            }
+        }
+
+
     }
-    elseif (isset($_GET['admin'])) 
+    elseif (isset($_GET['acces'])) 
     {
-        adminListPosts();
+        
+        if ($_GET['acces'] == 'admin') {
+            adminListPosts();
+        }
+        else 
+        {
+            throw new Exception('Erreur inconnue');
+        }
     }
     else 
     {

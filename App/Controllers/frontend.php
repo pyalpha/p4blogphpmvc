@@ -51,7 +51,7 @@ function editPost()
 {
 	$postManager = new PostManager();
 	$postContent = $postManager->getContentOfEditedPost($_GET['id']);
-	require('view/backend/editPostView.php');
+	require('/App/Views/backend/editPostView.php');
 }
 function updatePost($postId, $postContent)
 {

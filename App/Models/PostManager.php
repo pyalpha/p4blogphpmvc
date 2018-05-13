@@ -25,14 +25,23 @@ class PostManager extends Manager
     public function getPostsPreviews()
     {
         $db = $this->dbConnect();
-        $query = $db->query('SELECT * FROM posts');
+        $query = $db->query('SELECT id, content, creation_date FROM posts');
         return $query;
     }
+
+    public function postPost($postContent)
+	{
+		$db = $this->dbConnect();
+		$query = $db->prepare('INSERT INTO posts(content, creation_date) VALUES(:postContent, NOW())');
+		$query->bindValue(':postContent', $postContent, PDO::PARAM_STR);
+		$affectedLines = $query->execute();
+		return $affectedLines;
+	}
 
     public function getContentOfEditedPost($postId)
     {
                $db = $this->dbConnect();
-               $query = $db->prepare('SELECT * FROM posts WHERE id = :postId');
+               $query = $db->prepare('SELECT id, content FROM posts WHERE id = :postId');
                $query = $db->bindValue(':postId', $postId, PDO::PARAM_INT);
                $query->execute();
                $post = $query->fetch();

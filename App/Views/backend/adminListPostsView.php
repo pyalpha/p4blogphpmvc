@@ -4,6 +4,7 @@ $title = "Administration du Blog";
 
 ob_start() ?>
 <h1>Administration</h1>
+<a href="index.php?action=createNewArticle">Créer un article</a>
 <?php
 
 while($post = $posts->fetch())

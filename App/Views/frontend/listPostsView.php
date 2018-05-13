@@ -10,11 +10,8 @@ $title = 'Jean Forteroche';
         while ($data = $posts->fetch()) {
             ?>
                  <div class="new">
-                     <h3>
-                         <?= htmlspecialchars($data['title']); ?>
-                     </h3>
                      <p>
-                         <?= htmlspecialchars($data['content']);  ?>
+                         <?= $data['content'];  ?>
                      </p>
                      <span>
                          <?= htmlspecialchars($data['creation_date']) ?>

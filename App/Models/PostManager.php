@@ -25,7 +25,7 @@ class PostManager extends Manager
     public function getPostsPreviews()
     {
         $db = $this->dbConnect();
-        $query = $db->query('SELECT id, content, creation_date FROM posts');
+        $query = $db->query('SELECT id, LEFT(content, 250) as excerpt, creation_date FROM posts');
         return $query;
     }
 

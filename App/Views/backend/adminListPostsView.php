@@ -4,17 +4,17 @@ $title = "Administration du Blog";
 
 ob_start() ?>
 <h1>Administration</h1>
-<a href="index.php?action=createNewArticle">Créer un article</a>
-<form method="POST" action="index.php?action=delete_post">
+<a href="index.php?access=admin&page=createNewArticle">Créer un  nouvel article</a>
+<form method="POST" action="index.php?access=admin&page=delete_post">
 <?php
 
 while($post = $posts->fetch())
 {
     ?>
     <div class="news">
-        <?= $post['content']; ?><input type="checkbox" name="checked_post_id[]" value="<?= $post['id'], ?>">
+        <?= $post['content']; ?><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>">
         <span><?= 'Le ' . $post['creation_date'] ?> </span>
-        <a href="index.php?action=edit&id=<?= $post['id']; ?>">Modifier</a>
+        <a href="index.php?access=admin&page=edit&id=<?= $post['id']; ?>">Modifier</a>
     </div>
 
     <?php

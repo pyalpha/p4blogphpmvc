@@ -4,91 +4,143 @@
 
 require_once('App/Models/PostManager.php');
 require_once('App/Models/CommentManager.php');
+require_once('App/Models/UserManager.php');
 
-function adminListPost()
+function adminListPosts()
 {
-    $postManager = new PostManager();
-    $posts = $postManager->getPostsPreviews();
-
-    require('/App/Views/backend/adminListPostsView.php');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$postManager = new PostManager();
+		$posts = $postManager->getPostsPreviews();
+		require('App/Views/backend/adminListPostsView.php');
+	}
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}
+	
 }
-
 function createNewArticle()
 {
-	require('/App/Views/backend/createNewArticleView.php');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		require('App/Views/backend/createNewArticleView.php');
+	}
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}
 }
 function addPost($postContent)
 {
-	$postManager = new PostManager();
-	$affectedLines = $postManager->postPost($postContent);
-	if($affectedLines == false)
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
 	{
-		throw new Exception('Impossible d\'ajouter le post en base de donnée !');
+		$postManager = new PostManager();
+		$affectedLines = $postManager->postPost($postContent);
+		if($affectedLines == false)
+		{
+			throw new Exception('Impossible d\'ajouter le post en base de données.');
+		}
+		else
+		{
+			header('Location: index.php?access=admin&page=dashboard');
+		}
 	}
 	else
 	{
-		header('Location: index.php?acces=admin&page=dashboard');
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
 	}
 }
-
 function editPost()
 {
-	$postManager = new PostManager();
-	$postContent = $postManager->getContentOfEditedPost($_GET['id']);
-	require('/App/Views/backend/editPostView.php');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$postManager = new PostManager();
+		$postContent = $postManager->getContentOfEditedPost($_GET['id']);
+		require('App/Views/backend/editPostView.php');
+	}
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}
+		
 }
 function updatePost($postId, $postContent)
 {
-	$postManager = new PostManager();
-	$affectedLines = $postManager->PostUpdatedPost($postId, $postContent);
-	if ($affectedLines == false)
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
 	{
-		throw new Exception('Erreur, lors de la mise à jour du post en base de données.');
+		$postManager = new PostManager();
+		$affectedLines = $postManager->PostUpdatedPost($postId, $postContent);
+		if ($affectedLines == false)
+		{
+			throw new Exception('Erreur lors de la mise à jour du post en base de données.');
+		}
+		else
+		{
+			header('Location:index.php?access=admin&page=dashboard');
+		}
 	}
 	else
 	{
-		header('Location:index.php?acces=admin&page=dashboard');
-	}
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}	
 }
-
 function removePost($checked_posts_id)
 {
-	$postManager = new PostManager();
-	foreach ($checked_posts_id as $postId)
-	 {
-		$affectedLines = $postManager->deletePost($postId);
-		if ($affectedLines == false)
-		{
-			throw new Exception('Erreur lors de la supression du ou des posts en base de données.');
-		}
-		else
-		{
-			header('Location:index.php?acces=admin&page=dashboard');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$postManager = new PostManager();
+		foreach ($checked_posts_id as $postId)
+		 {
+			$affectedLines = $postManager->deletePost($postId);
+			if ($affectedLines == false)
+			{
+				throw new Exception('Erreur lors de la supression du ou des posts en base de données.');
+			}
+			else
+			{
+				header('Location:index.php?access=admin&page=dashboard');
+			}
 		}
 	}
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}	
 }
-
 function listReportedComments()
 {
-	$commentManager = new CommentManager;
-	$query = $commentManager->getReportedComments();
-	require('view/backend/listReportedCommentsView.php');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$commentManager = new CommentManager;
+		$query = $commentManager->getReportedComments();
+		require('App/Views/backend/listReportedCommentsView.php');
+	}	
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}	
 }
-
-
 function removeComment($checked_comments_id)
 {
-	$commentManager = new CommentManager();
-	foreach ($checked_comments_id as $comment_id)
-	 {
-		$affectedLines = $commentManager->deleteComment($comment_id);
-		if ($affectedLines == false)
-		{
-			throw new Exception('Erreur lors de la supression du ou des commentaires en base de données.');
-		}
-		else
-		{
-			header('Location:index.php?access=admin&page=reported_comments');
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$commentManager = new CommentManager();
+		foreach ($checked_comments_id as $comment_id)
+		 {
+			$affectedLines = $commentManager->deleteComment($comment_id);
+			if ($affectedLines == false)
+			{
+				throw new Exception('Erreur lors de la supression du ou des commentaires en base de données.');
+			}
+			else
+			{
+				header('Location:index.php?access=admin&page=reported_comments');
+			}
 		}
 	}
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}	
 }

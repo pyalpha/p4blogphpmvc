@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require('App/Controllers/frontend.php');
 require('App/Controllers/backend.php');
 //require __DIR__."App/Controllers/frontend.php";
@@ -68,6 +70,22 @@ try
 			else{
 				throw new Exception('Aucun identifiant d\'article envoyé. Impossible d\'effectuer l\'action demandée.');
 			}
+		}
+		else if($_GET['action'] == 'sign_up')
+		{
+			signUp();
+		}
+		else if($_GET['action'] == 'add_user')
+		{
+			addUser();	
+		}
+		else if ($_GET['action'] == 'sign_in')
+		{
+			signIn();
+		}
+		else if($_GET['action'] == 'disconnect')
+		{
+			disconnect();
 		}
 	}
 	else if(isset($_GET['access']))

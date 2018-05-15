@@ -1,31 +1,29 @@
 <?php
 
-$title = 'Jean Forteroche';
-
-?>
+$title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-        <h1>Le blog de Jean</h1>
-        <a href="index.php?access=admin&page=dashboard">Panneau d'administration</a>
-        <?php 
-        while ($data = $posts->fetch()) {
-            ?>
-                 <div class="new">
-                     <p>
-                         <?= $data['content'];  ?>
-                     </p>
-                     <span>
-                         <?= htmlspecialchars($data['creation_date']) ?>
-                     </span>
-                     <a href="?action=post&id=<?= $data['id']; ?>">Commentaires</a>
-                 </div>
-            <?php
-        }
-$posts->closeCursor(); // fin de la requette
-
+    <h1>Mon super blog !</h1>
+    <h3><?= $messageDeBienvenue ?></h3>
+    
+    <?php
+    while ($data = $posts->fetch())
+    {
+    ?>
+        <div class="news">
+            <p>
+                <?= $data['content'] ?>
+            </p>
+            <span>
+                <?= 'Le '. htmlspecialchars($data['creation_date']) ?>	
+            </span>
+            <a href="?action=post&id=<?= $data['id']?>">Commentaires</a>
+        </div>
+    <?php 
+    }
+$posts->closeCursor(); // end of the query
 ?>
+<br>
 <?php
-$content = ob_get_clean(); //le contenu du view
-require('default.php'); // appele à la template gabarit
-
-?>
+$content = ob_get_clean(); // content of the view
+require('default.php'); // call the template 

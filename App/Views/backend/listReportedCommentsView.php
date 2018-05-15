@@ -3,7 +3,7 @@
 	ob_start();
 	?>
 	<h1>Commentaires signalés</h1>
-	<form method="POST" action="index.php?access=admin&page=delete_reported_comment">
+	<form method="POST" action="index.php?access=admin&interface=delete_reported_comment">
 	<?php
 		while ($data = $query->fetch())
 		{

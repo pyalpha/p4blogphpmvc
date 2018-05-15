@@ -5,7 +5,7 @@
 
 	<h1>Créer un nouvel article</h1>
 
-	<form id="get-data-form" method="post" action="index.php?access=admin&page=postArticle">
+	<form id="get-data-form" method="post" action="index.php?access=admin&interface=postArticle">
 		<textarea id="articleContent" name="articleContent" class="tinymce"></textarea>
 		<input type="submit" value="Envoyer">
 	</form>

@@ -9,8 +9,28 @@ if(isset($_SESSION['id']) && isset($_SESSION['name']) && $_SESSION['rank'] == 'd
 else if(isset($_SESSION['id']) && isset($_SESSION['name']) && $_SESSION['rank'] == 'admin')
 {
 	ob_start();?>
-	<a href="index.php?action=disconnect">Se déconnecter</a>
-	<a href="index.php?access=admin&page=dashboard">Panneau d'administration</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<a class="navbar-brand" href="#"><span class="blue">J</span>ean <span class="purple">F</span>orteroche</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul id="myScrollspy" class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="index.php">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?action=listPosts">Mon roman</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?access=admin&interface=dashboard">Panneau d'administration</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?action=disconnect">Se déconnecter</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 	<?php
 	$menu = ob_get_clean();
 }
@@ -18,23 +38,84 @@ else
 {
 	ob_start();
 	?>
-	<h3>Se connecter</h3>
-	<form method="post" action="index.php?action=sign_in">
-		<input type="text" name="name" placeholder="Pseudo"/><br/>
-		<input type="password" name="password" placeholder="Mot de passe" /><br/><br/>
-		<input type="submit" value="Se connecter">
-	</form>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<a class="navbar-brand" href="#"><span class="blue">J</span>ean <span class="purple">F</span>orteroche</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul id="myScrollspy" class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="index.php">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?action=listPosts">Mon roman</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link"  data-toggle="modal" href="#ModalConnexion">Se connecter</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link"  data-toggle="modal" href="#ModalInscription">S'inscrire</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
-	<h1>S'inscrire</h1>
+			<!-- Modal Inscription -->
+	<div class="modal fade" id="ModalInscription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Inscription</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="index.php?action=add_user">
+						<div class="form-group">
+							<input type="text" name="name" class="form-control" placeholder="Pseudo">
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" class="form-control" placeholder="Email">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password1" class="form-control" placeholder="Mot de passe">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password2" class="form-control" placeholder="Mot de passe">
+						</div>
+						<button type="submit" class="btn btn-primary">S'inscrire</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<form method="post" action="index.php?action=add_user">
-		<input type="text" name="name" placeholder="Pseudo" /><br/>
-		<input type="email" name="email" placeholder="Email" /><br/>
-		<input type="password" name="password1" placeholder="Mot de passe" /><br/>
-		<input type="password" name="password2" placeholder="Mot de passe" /><br/><br/>
-		<input type="submit" value="S'inscrire" />
-	</form>
-
+	<!-- Modal Connexion -->
+	<div class="modal fade" id="ModalConnexion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="index.php?action=sign_in">
+						<div class="form-group">
+							<input type="text" name="name"  class="form-control" placeholder="Pseudo"/>
+						</div>
+						<div class="form-group">
+							<input type="password" name="password"  class="form-control" placeholder="Mot de passe" />
+						</div>
+						<button type="submit" class="btn btn-primary">Se connecter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<?php
 	$menu = ob_get_clean();
 }
@@ -53,7 +134,7 @@ else
 
 
     <!-- Bootstrap core CSS -->
-    <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom fonts for this template -->
     <link href="./vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +142,7 @@ else
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="./public/css/clean-blog.min.css" rel="stylesheet">
+    <link href="./public/css/styles.css" rel="stylesheet" type="text/css" >
 
     <title><?= $title; ?></title>
 
@@ -69,53 +150,12 @@ else
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.php">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="index.php?p=posts.category&id=1">Romans</a>
-            </li>
-            <?php
-               if (!isset($_SESSION['auth'])) {
-                   echo '<li class="nav-item"> <a class="nav-link" href="index.php?p=users.login">Connexion</a> </li>';
-               } else {
-                   echo '<li class="nav-item"> <a class="nav-link" href="index.php?p=admin.posts.index">Admin</a> </li>';
-               }
-            ?>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
-              <h1>Clean Blog</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
     <!-- Main Content -->
     <div class="container">
       <?= $menu ?>
-      <?= $content ?>
+      <div class="mt-10">
+        <?= $content ?>
+      </div>
     </div>
 
     <hr>

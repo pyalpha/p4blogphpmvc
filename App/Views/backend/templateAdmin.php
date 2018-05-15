@@ -19,13 +19,36 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link href="./public/css/clean-blog.min.css" rel="stylesheet">
+    <link href="./public/css/styles.css" rel="stylesheet">
 
     <title><?= $title; ?></title>
 
   </head>
 
   <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<a class="navbar-brand" href="#">Jean Forteroche</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul id="myScrollspy" class="navbar-nav mx-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="index.php">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?action=listPosts">Mon roman</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?access=admin&interface=dashboard">Panneau d'administration</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="index.php?action=disconnect">Se déconnecter</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
     <!-- Main Content -->
     <div class="container">

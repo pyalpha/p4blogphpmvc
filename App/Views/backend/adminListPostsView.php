@@ -4,7 +4,8 @@ $title = "Administration du Blog";
 
 ob_start() ?>
 <h1>Administration</h1>
-<a href="index.php?access=admin&page=createNewArticle">Créer un  nouvel article</a>
+<a href="index.php?access=admin&page=createNewArticle">Créer un nouvel article</a><br/><br/>
+<a href="index.php?access=admin&page=reported_comments">Commentaires signalés</a>
 <form method="POST" action="index.php?access=admin&page=delete_post">
 <?php
 

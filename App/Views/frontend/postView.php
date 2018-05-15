@@ -29,7 +29,15 @@ ob_start();
 <?php
 while ($comment = $comments->fetch()) {
     ?>
-    <p><?= $comment['author'].' Le ' .$comment['comment_date_fr'].'<br/>' .$comment['comment']; ?></p>
+    <p><?= $comment['author'].' Le ' .$comment['comment_date_fr']; ?>
+    <br/>
+    <?= $comment['comment']; ?>
+    <form method="post" action="index.php?action=report_comment&post_id=<?=$_GET['id'];?>&comment_id=<?=$comment['id'];?>">
+        <input type="submit" value="Signaler ce commentaire" />
+    </form>
+
+    </p>
+    
     <?php
 }
 $comments->closeCursor();

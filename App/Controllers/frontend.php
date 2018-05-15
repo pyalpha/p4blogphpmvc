@@ -26,16 +26,39 @@ function post()
     require('App/Views/frontend/postView.php');
 }
 
-function addComment()
+function comment()
 {
-    $commentManager = new CommentManager();
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+	$commentManager = new CommentManager();
+	$comment = $commentManager->getComment($_GET['id']);
+	require('App/Views/frontend/commentView.php');
+}
 
-    if ($affectedLines == false) {
-        throw new Exceptio('Impossible d\'ajouter le commentaire !');
-    }
-    else {
-        header('Location: index.php?action=post&id' . $postId);
-    }
+
+function addComment($postId, $author, $comment)
+{
+	$commentManager = new CommentManager();
+	$affectedLines = $commentManager->postComment($postId, $author, $comment);
+	if($affectedLines == false)
+	{
+		throw new Exception('Impossible d\'ajouter le commentaire !');
+	}
+	else
+	{
+		header('Location: index.php?action=post&id=' . $postId);
+	}
+}
+
+
+function reportComment($post_id, $comment_id)
+{
+	$commentManager = new CommentManager();
+	$affectedLines = $commentManager->setReportedComment($comment_id);
+	if($affectedLines == false)
+	{
+		throw new Exception('Impossible d\'envoyer le commentaire signalé en base de données. Veuillez réessayer plus tard.');
+	}
+	else{
+		header('Location: index.php?action=post&id=' . $post_id);
+	}
 }
 

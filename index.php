@@ -23,6 +23,17 @@ try
 				throw new Exception('Erreur : aucun identifiant de billet envoyé !');
 			}
 		}
+		else if($_GET['action'] == 'comment')
+		{
+			if(isset($_GET['id']) && $_GET['id'] > 0)
+			{
+				comment();
+			}
+			else
+			{
+				throw new Exception('Erreur : Aucun identifiant de commentaire envoyé !');
+			}
+		}
 		else if($_GET['action'] == 'addComment')
 		{
 			if(isset($_GET['id']) && $_GET['id'] > 0)
@@ -39,6 +50,23 @@ try
 			else
 			{
 				throw new Exception('Erreur : identifiant de billet incorrect !');
+			}
+		}
+		else if($_GET['action'] == 'report_comment')
+		{
+			if(isset($_GET['post_id']) && $_GET['post_id'] > 0)
+			{
+				if(isset($_GET['comment_id']) && $_GET['comment_id'] > 0)
+				{
+					reportComment($_GET['post_id'], $_GET['comment_id']);
+				}
+				else
+				{
+					throw new Exception('Aucun identifiant de commentaire envoyé. Impossible d\'effectuer l\'action demandée.');
+				}
+			}
+			else{
+				throw new Exception('Aucun identifiant d\'article envoyé. Impossible d\'effectuer l\'action demandée.');
 			}
 		}
 	}
@@ -105,6 +133,17 @@ try
 						{
 							echo "Erreur."."<br/>Vous n'avez pas coché de checkbox";
 						}
+				}
+				else if ($_GET['page'] == 'reported_comments')
+				{
+					listReportedComments();
+				}
+				else if($_GET['page'] == 'delete_reported_comment')
+				{
+					if(isset($_POST['checked_comment_id']) && !empty($_POST['checked_comment_id']))
+					{
+						removeComment($_POST['checked_comment_id']);
+					}
 				}
 				else
 				{

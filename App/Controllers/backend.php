@@ -67,3 +67,28 @@ function removePost($checked_posts_id)
 		}
 	}
 }
+
+function listReportedComments()
+{
+	$commentManager = new CommentManager;
+	$query = $commentManager->getReportedComments();
+	require('view/backend/listReportedCommentsView.php');
+}
+
+
+function removeComment($checked_comments_id)
+{
+	$commentManager = new CommentManager();
+	foreach ($checked_comments_id as $comment_id)
+	 {
+		$affectedLines = $commentManager->deleteComment($comment_id);
+		if ($affectedLines == false)
+		{
+			throw new Exception('Erreur lors de la supression du ou des commentaires en base de données.');
+		}
+		else
+		{
+			header('Location:index.php?access=admin&page=reported_comments');
+		}
+	}
+}

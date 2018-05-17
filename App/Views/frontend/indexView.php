@@ -11,7 +11,7 @@ ob_start();?>
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Clean Blog</h1>
-              <span class="subheading">A Blog Theme by Start Bootstrap</span>
+              <span class="subheading">1 A Blog Theme by Start Bootstrap</span>
               <a href="index.php?action=listPosts" class="btn btnConsulterPage">Consulter la page</a>
             </div>
           </div>

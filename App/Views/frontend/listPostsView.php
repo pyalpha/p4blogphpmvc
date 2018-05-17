@@ -39,7 +39,7 @@
 				<div class="col-md-12">
 					<p>Pages
 						<?php
-						for ($i=1; $i < $nombreDePages; $i++) { 
+						for ($i=1; $i <= $nombreDePages; $i++) { 
 							if($i == $pageCourante)
 							{
 								echo $i;

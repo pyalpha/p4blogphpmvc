@@ -31,7 +31,7 @@ function listPosts($pageCourante)
 	$postManager = new PostManager();
 	$posts = $postManager->getPostsPreviews($depart, $postsPerPage);
 	$numberOfPosts = $postManager->getNumberOfPosts();
-	$nombreDePages = ceil($numberOfPosts/$postsPerPage)+1; 
+	$nombreDePages = ceil($numberOfPosts/$postsPerPage); 
 	if(isset($_GET['page']) && $_GET['page'] > $nombreDePages)
 	{
 		header('Location: index.php?action=listPosts');
@@ -40,12 +40,16 @@ function listPosts($pageCourante)
 	$commentManager = new CommentManager(); // used to call a method in the view
 	require('App/Views/frontend/listPostsView.php');
 }
-function post()
+function post($pageCourante)
 {
+	$commentsPerPage = 5;
+	$depart = ($pageCourante-1)*$commentsPerPage;
 	$postManager = new PostManager();
 	$commentManager = new CommentManager();
 	$post = $postManager->getPost($_GET['id']);
-	$comments = $commentManager->getComments($_GET['id']);
+	$comments = $commentManager->getComments($_GET['id'], $depart, $commentsPerPage);
+	$numberOfComments = $commentManager->getNumberOfComments($_GET['id']);
+	$nombreDePages = ceil($numberOfComments/$commentsPerPage);
 	require('App/Views/frontend/postView.php');
 }
 function comment()
@@ -54,36 +58,53 @@ function comment()
 	$comment = $commentManager->getComment($_GET['id']);
 	require('App/Views/frontend/commentView.php');
 }
-function addComment($postId, $author, $comment)
+function addComment()
 {
-	$commentManager = new CommentManager();
-	$affectedLines = $commentManager->postComment($postId, $author, $comment);
-	if($affectedLines == false)
+	if(isset($_SESSION['name']) && isset($_POST['comment']) && !empty($_POST['comment']))
 	{
-		throw new Exception('Impossible d\'ajouter le commentaire !');
+		$commentManager = new CommentManager();
+		$affectedLines = $commentManager->postComment($_GET['id'], $_SESSION['name'], $_POST['comment']);
+		if($affectedLines == false)
+		{
+			throw new Exception('Impossible d\'ajouter le commentaire !');
+		}
+		else
+		{
+			header('Location: index.php?action=post&id=' . $_GET['id']);
+		}
 	}
 	else
 	{
-		header('Location: index.php?action=post&id=' . $postId);
+		throw new Exception('Erreur : tous les champs ne sont pas remplis !');
 	}
 }
+
 function reportComment($post_id, $comment_id)
 {
-	$commentManager = new CommentManager();
-	$affectedLines = $commentManager->setReportedComment($comment_id);
-	if($affectedLines == false)
+	if(isset($_POST['reason']) && !empty($_POST['reason']))
 	{
-		throw new Exception('Impossible d\'envoyer le commentaire signalé en base de données. Veuillez réessayer plus tard.');
+		$commentManager = new CommentManager();
+		$affectedLines = $commentManager->setReportedComment($comment_id, $_SESSION['name'], $_POST['reason']);
+		if($affectedLines == false)
+		{
+			throw new Exception('Impossible d\'envoyer le commentaire signalé en base de données. Veuillez réessayer plus tard.');
+		}
+		else
+		{
+			header('Location: index.php?action=post&id=' . $post_id);
+		}
 	}
 	else
 	{
-		header('Location: index.php?action=post&id=' . $post_id);
+		throw new Exception("Erreur. Vous devez remplir les champs du formulaire !");
 	}
 }
+
 function signup()
 {
 	require('App/Views/frontend/signUpView.php');
 }
+
 function addUser()
 {
 	if(isset($_POST['name']) && isset($_POST['password1']) && isset($_POST['password2']) && isset($_POST['email']))

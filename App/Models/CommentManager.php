@@ -3,13 +3,24 @@
 
 class CommentManager extends Manager
 {
-	public function getComments($postId)
+	public function getComments($postId, $depart, $commentsPerPage)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %H:%i\') AS comment_date_fr FROM comments WHERE post_id = :postId ORDER BY comment_date DESC LIMIT 5');
+		$query = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %H:%i\') AS comment_date_fr FROM comments WHERE post_id = :postId ORDER BY comment_date LIMIT :depart, :commentsPerPage');
 		$query->bindValue(':postId', $postId, PDO::PARAM_INT);
+		$query->bindValue(':depart', $depart, PDO::PARAM_INT);
+		$query->bindValue(':commentsPerPage', $commentsPerPage, PDO::PARAM_INT);
 		$query->execute();
 		return $query;
+	}
+	public function getNumberOfComments($postId)
+	{
+		$db = $this->dbConnect();
+		$query = $db->prepare('SELECT * from comments WHERE post_id = :postId');
+		$query->bindValue(':postId', $postId, PDO::PARAM_INT);
+		$query->execute();
+		$numberOfComments = $query->rowCount();
+		return $numberOfComments;
 	}
 	public function getComment($comment_id)
 	{
@@ -40,11 +51,13 @@ class CommentManager extends Manager
 		$affectedLines = $query->execute();
 		return $affectedLines;
 	}
-	public function setReportedComment($comment_id)
+	public function setReportedComment($comment_id, $user, $reason)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('INSERT INTO reported_comments(comment_id, report_date) VALUES(:comment_id, NOW())');
+		$query = $db->prepare('INSERT INTO reported_comments(comment_id, report_date, reported_by, reason) VALUES(:comment_id, NOW(), :user, :reason)');
 		$query->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
+		$query->bindValue(':user', $user, PDO::PARAM_STR);
+		$query->bindValue(':reason', $reason, PDO::PARAM_STR);
 		$affectedLines = $query->execute();
 		return $affectedLines;
 	}
@@ -72,4 +85,3 @@ class CommentManager extends Manager
 		return $affectedLines;
 	}
 }
-

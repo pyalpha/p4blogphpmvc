@@ -1,69 +1,77 @@
 <?php
-	$title = "Panneau d'administration";
+
+$title = "Panneau d'administration";
 	ob_start(); ?>
-	<h1 class="text-center mt-12">Panneau d'administration</h1>
-	<a href="index.php?access=admin&interface=createNewArticle" class="btn btn-success">Ajouter un article</a>
-	<a href="index.php?access=admin&interface=reported_comments" class="btn btn-danger">Commentaires signalés</a>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">N°</th>
-				<th scope="col">Contenu</th>
-				<th scope="col">Date de publication</th>
-				<th scope="col">Modifier</th>
-				<th scope="col">Sélectionner</th>
-			</tr>
-		</thead>
-		<tbody>
-			
-		
-			<form method="POST" action="index.php?access=admin&interface=delete_post">
-			<?php
-			while($post = $posts->fetch())
-			{
-				?>
-				<tr>
-					<th scope="row"><?= $post['id'] ?></th>
-					<td><?= strip_tags($post['excerpt']); ?><a href="index.php?action=post&id=<?=$post['id']?>">[...]</a></td>
-					<td><?= $post['creation_date']; ?></td>
-					<td><a href="index.php?access=admin&interface=edit&id=<?= $post['id'] ?>">Modifier</a></td>
-					<td><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
-				</tr>
-				<?php
-			}
-			$posts->closeCursor(); // end of the query
-			?>
+	<div id="dashboard" class="container">
+		<div class="row">
+			<div class="col-12">
+				
+				<h1 class="text-center mt-6 blue">Panneau d'administration</h1>
+				
 
-		<br/>
-		</tbody>
-	</table>
-				<input type="submit" value="Effacer les articles" class="btn btn-danger float-right">
-			</form>
+				<table class="table mt-5">
+					<thead>
+						<tr>
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<p>Pages
+							<th scope="col">N°</th>
+							<th scope="col">Modifier</th>
+							<th scope="col">Contenu</th>
+							<th scope="col">Date de publication</th>
+							<th scope="col">Sélectionner</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					
+						<form method="POST" action="index.php?access=admin&interface=delete_post">
 						<?php
-						for ($i=1; $i < $nombreDePages; $i++) { 
-							if($i == $pageCourante)
-							{
-								echo $i;
-							}
-							else
-							{
-								?>
-							<a href="index.php?access=admin&interface=dashboard&page=<?= $i ?>"><?= $i ?></a>
+						while($post = $posts->fetch())
+						{
+							?>
+							<tr>
+								
+								<th scope="row"><?= $post['id'] ?></th>
+								<td scope="row"><a href="index.php?access=admin&interface=edit&id=<?= $post['id'] ?>"><i class="fas fa-edit blue"></i></a></td>
+								<td scope="row"><?= strip_tags($post['excerpt']); ?><a href="index.php?action=post&id=<?=$post['id']?>">[...]</a></td>
+								<td scope="row">Le <?= $post['creation_date']; ?></td>
+								<td scope="row"><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
+							</tr>
 							<?php
-							}
 						}
+						$posts->closeCursor(); // end of the query
 						?>
-					</p>
-				</div>
+
+					<br/>
+					</tbody>
+				</table>
+							<input type="submit" value="Effacer les articles" class="btn btn-danger float-right">
+						</form>
+
+
+				<p>Pages
+					<?php
+					for ($i=1; $i < $nombreDePages; $i++) { 
+						if($i == $pageCourante)
+						{
+							echo $i;
+						}
+						else
+						{
+							?>
+						<a href="index.php?access=admin&interface=dashboard&page=<?= $i ?>"><?= $i ?></a>
+						<?php
+						}
+					}
+					?>
+				</p>
+				<a href="index.php?access=admin&interface=createNewArticle" class="btn btn-success">Ajouter un article</a>
+				<a href="index.php?access=admin&interface=reported_comments" class="btn btn-primary">Commentaires signalés</a><br>
+				
 			</div>
 		</div>
-	<a href="index.php" class="btn btn-primary float-left">Retourner à l'accueil</a>
+	</div>
+
 	<?php
 	$posts->closeCursor();
 	$content = ob_get_clean();

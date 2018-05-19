@@ -22,6 +22,13 @@ class CommentManager extends Manager
 		$numberOfComments = $query->rowCount();
 		return $numberOfComments;
 	}
+	public function getNumberOfReportedComments()
+	{
+		$db = $this->dbConnect();
+		$query = $db->query('SELECT * from reported_comments');
+		$numberOfReportedComments = $query->rowCount();
+		return $numberOfReportedComments;
+	}
 	public function getComment($comment_id)
 	{
 		$db = $this->dbConnect();
@@ -61,10 +68,37 @@ class CommentManager extends Manager
 		$affectedLines = $query->execute();
 		return $affectedLines;
 	}
-	public function getReportedComments()
+	public function checkIfTheCommentStillExists($commentId)
 	{
 		$db = $this->dbConnect();
-		$query = $db->query('SELECT * FROM reported_comments INNER JOIN comments ON reported_comments.comment_id = comments.id');
+		$query = $db->prepare('SELECT * FROM comments WHERE id = :commentId');
+		$query->bindValue(':commentId', $commentId, PDO::PARAM_STR);
+		$query->execute();
+		$theCommentStillExists = $query->fetch();
+		return $theCommentStillExists;
+	}
+	public function checkIfTheUserHasAlreadyReportedThisComment($user, $commentId)
+	{
+		$db = $this->dbConnect();
+		$query = $db->prepare('SELECT * FROM reported_comments WHERE comment_id = :commentId AND reported_by = :user');
+		$query->bindValue(':user', $user, PDO::PARAM_STR);
+		$query->bindValue(':commentId', $commentId, PDO::PARAM_INT);
+		$query->execute();
+		$theUserHasAlreadyReportedThisComment = $query->fetch();
+		return $theUserHasAlreadyReportedThisComment;
+	}
+	public function getReportedComments($depart, $reportedCommentsPerPage)
+	{
+		$db = $this->dbConnect();
+		$query = $db->prepare('SELECT *, LEFT(comments.comment, 30) as comment_excerpt,
+		DATE_FORMAT(comments.comment_date, \'%d/%m/%Y\') as comment_date,
+		DATE_FORMAT(reported_comments.report_date, \'%d/%m/%Y \') as report_date
+		FROM reported_comments 
+		INNER JOIN comments 
+		ON reported_comments.comment_id = comments.id
+		LIMIT :depart, :reportedCommentsPerPage');
+		$query->bindValue(':depart', $depart, PDO::PARAM_INT);
+		$query->bindValue(':reportedCommentsPerPage', $reportedCommentsPerPage, PDO::PARAM_INT);
 		$query->execute();
 		return $query;
 	}
@@ -83,5 +117,13 @@ class CommentManager extends Manager
 		$query->bindValue(':postId', $postId, PDO::PARAM_INT);
 		$affectedLines = $query->execute();
 		return $affectedLines;
+	}
+	public function deleteReportOfAComment($commentId) // when you delete a reported comment, call this method to delete all the reports associated with the comment.
+	{
+		$db = $this->dbConnect();
+		$query = $db->prepare('DELETE FROM reported_comments WHERE comment_id = :commentId');
+		$query->bindValue(':commentId', $commentId, PDO::PARAM_INT);
+		$affectedLines2 = $query->execute();
+		return $affectedLines2;
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-
 $title = "Panneau d'administration";
 	ob_start(); ?>
 
@@ -13,12 +12,10 @@ $title = "Panneau d'administration";
 				<table class="table mt-5">
 					<thead>
 						<tr>
-
-							<th scope="col">N°</th>
+							<th scope="col"></th>
 							<th scope="col">Modifier</th>
 							<th scope="col">Contenu</th>
 							<th scope="col">Date de publication</th>
-							<th scope="col">Sélectionner</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,12 +27,10 @@ $title = "Panneau d'administration";
 						{
 							?>
 							<tr>
-								
-								<th scope="row"><?= $post['id'] ?></th>
+								<td scope="row"><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
 								<td scope="row"><a href="index.php?access=admin&interface=edit&id=<?= $post['id'] ?>"><i class="fas fa-edit blue"></i></a></td>
 								<td scope="row"><?= strip_tags($post['excerpt']); ?><a href="index.php?action=post&id=<?=$post['id']?>">[...]</a></td>
 								<td scope="row">Le <?= $post['creation_date']; ?></td>
-								<td scope="row"><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
 							</tr>
 							<?php
 						}
@@ -45,7 +40,7 @@ $title = "Panneau d'administration";
 					<br/>
 					</tbody>
 				</table>
-							<input type="submit" value="Effacer les articles" class="btn btn-danger float-right">
+							<input type="submit" value="Effacer les articles" class="btn btn-danger mb-3">
 						</form>
 
 
@@ -77,3 +72,4 @@ $title = "Panneau d'administration";
 	$content = ob_get_clean();
 	require('templateAdmin.php');
 ?>
+

@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col-md-12 articles">
 					<p>
-						<?= $data['excerpt']?>
+						<h3 class="blue"><?= strip_tags($data['excerpt']); ?></h3>
 						<a href="index.php?action=post&id=<?=$data['id']?>">[...] Lire la suite</a>
 					</p>
 					<span>

@@ -1,3 +1,5 @@
+<?php require('App/Views/frontend/menu.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -27,28 +29,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-			<a class="navbar-brand" href="#">Jean Forteroche</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul id="myScrollspy" class="navbar-nav mx-auto">
-					<li class="nav-item">
-						<a class="nav-link" href="index.php">Accueil</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="index.php?action=listPosts">Mon roman</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="index.php?access=admin&interface=dashboard">Panneau d'administration</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="index.php?action=disconnect">Se déconnecter</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+    <? getMenu(); ?>
 
     <!-- Main Content -->
     <div class="container">
@@ -56,6 +37,8 @@
     </div>
 
     <hr>
+
+    <footer class="p-2 text-center">© Jean Forteroche - 2018</footer>
 
     <!-- Bootstrap core JavaScript -->
     <script src="./vendor/jquery/jquery.min.js"></script>

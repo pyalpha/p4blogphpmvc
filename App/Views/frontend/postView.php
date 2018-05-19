@@ -5,13 +5,13 @@ ob_start();
 
 <div class="container-fluid"><!--container-->
 	<div class="row"><!--row-->
-		<div class="col-md-12"><!--col-->
+		<div class="col-12"><!--col-->
 			<?= $post['content']; ?>
 		</div><!--/col -->
 	</div><!--/row-->
 
 	<div class="row"><!--row-->
-		<div class="col-md-12">	<!--col-->
+		<div class="col-12">	<!--col-->
 			<h2 class="blue">Commentaires (<?= $numberOfComments ?>)</h2>
 
 			<?php
@@ -46,17 +46,17 @@ ob_start();
 			{
 			?>
 				<div class="row mt-4">
-					<div class="col-2">
+					<div class="col-12 col-lg-2">
 						<?= 'Par '.'<span class="blue"><b>'.$comment['author'].'</b></span>'.' le '.$comment['comment_date_fr'];?>
 					</div>
-					<div class="col-10">
+					<div class="col-12 col-lg-10">
 						<?php
 						if(!empty($_SESSION) && isset($_SESSION['rank'])) 
 						{
 							if($_SESSION['rank'] == 'default_user' || $_SESSION['rank'] == 'admin')
 							{
-								?><a data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fas fa-flag orange fa-2x"></i></a>
-					</div>
+								?><a data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fas fa-flag orange fa-1_5x"></i></a>
+					
 								
 					<!-- Modal Report Comment-->
 					<div class="modal fade" id="ModalReportComment<?=$comment['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -70,7 +70,10 @@ ob_start();
 								</div>
 								<div class="modal-body">
 									<form method="post" action="index.php?action=report_comment&post_id=<?=$_GET['id'];?>&comment_id=<?=$comment['id'];?>">
-										<textarea placeholder="Motif du signalement" name="reason"></textarea><br/>
+										<label>Votre pseudo</label>
+										<p class="fakeInput col-12 inputPaddingFix"><?= $_SESSION['name']; ?></p>
+										<label>Motif du signalement</label><br/>
+										<textarea placeholder="Exemple : injures, incitation à la haine, racisme..." name="reason" class="col-12 inputPaddingFix"></textarea><br/>
 										<input type="submit" value="Signaler" class="report-btn mt-4" />
 									</form>
 								</div>
@@ -81,6 +84,7 @@ ob_start();
 						} // end of rank check
 					} // end of check if connected and if rank is set
 					?>
+					</div>
 					<div class="col-12 comment">
 						<?= $comment['comment']; ?>	
 					</div>
@@ -91,19 +95,20 @@ ob_start();
 			?>
 
 			<p class="mt-3">Pages <?php
-			for ($i=1; $i <= $nombreDePages; $i++) { 
-				if($i == $pageCourante)
-				{
-					echo $i;
+				for ($i=1; $i <= $nombreDePages; $i++) { 
+					if($i == $pageCourante)
+					{
+						echo $i;
+					}
+					else
+					{
+						?>
+					<a href="index.php?action=post&id=22&page=<?= $i ?>"><?= $i ?></a>
+					<?php
+					}
 				}
-				else
-				{
-					?>
-				<a href="index.php?action=post&id=22&page=<?= $i ?>"><?= $i ?></a>
-				<?php
-				}
-			}
-			?>
+				?>
+			</p>
 		</div><!--/col -->
 	</div><!--/row-->
 </div> <!--/container  -->
@@ -111,5 +116,7 @@ ob_start();
 $content = ob_get_clean();
 require('default.php');
 ?>
+
+
 
 

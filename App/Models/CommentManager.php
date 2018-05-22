@@ -6,7 +6,11 @@ class CommentManager extends Manager
 	public function getComments($postId, $depart, $commentsPerPage)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %H:%i\') AS comment_date_fr FROM comments WHERE post_id = :postId ORDER BY comment_date LIMIT :depart, :commentsPerPage');
+		$query = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %H:%i\') AS comment_date_fr
+		FROM comments 
+		WHERE post_id = :postId 
+		ORDER BY comment_date 
+		LIMIT :depart, :commentsPerPage');
 		$query->bindValue(':postId', $postId, PDO::PARAM_INT);
 		$query->bindValue(':depart', $depart, PDO::PARAM_INT);
 		$query->bindValue(':commentsPerPage', $commentsPerPage, PDO::PARAM_INT);

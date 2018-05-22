@@ -62,8 +62,9 @@ function addComment()
 {
 	if(isset($_SESSION['name']) && isset($_POST['comment']) && !empty($_POST['comment']))
 	{
+		$comment = htmlspecialchars($_POST['comment']);
 		$commentManager = new CommentManager();
-		$affectedLines = $commentManager->postComment($_GET['id'], $_SESSION['name'], $_POST['comment']);
+		$affectedLines = $commentManager->postComment($_GET['id'], $_SESSION['name'], $comment);
 		if($affectedLines == false)
 		{
 			throw new Exception('Impossible d\'ajouter le commentaire !');
@@ -82,6 +83,7 @@ function reportComment($post_id, $comment_id)
 {
 	if(isset($_POST['reason']) && !empty($_POST['reason']))
 	{
+		$reason = htmlspecialchars($_POST['reason']);
 		$commentManager = new CommentManager();
 		$theCommentStillExists = $commentManager->checkIfTheCommentStillExists($comment_id);
 		if($theCommentStillExists)
@@ -93,7 +95,7 @@ function reportComment($post_id, $comment_id)
 			}
 			else
 			{
-				$affectedLines = $commentManager->setReportedComment($comment_id, $_SESSION['name'], $_POST['reason']);
+				$affectedLines = $commentManager->setReportedComment($comment_id, $_SESSION['name'], $reason);
 				if($affectedLines == false)
 				{
 					throw new Exception('Impossible d\'envoyer le commentaire signalé en base de données. Veuillez réessayer plus tard.');
@@ -118,10 +120,11 @@ function addUser()
 {
 	if(isset($_POST['name']) && isset($_POST['password1']) && isset($_POST['password2']) && isset($_POST['email']))
 		{
+			$userName = htmlspecialchars($_POST['name']);
 			if(!empty($_POST['name']) && !empty($_POST['password1']) && !empty($_POST['password2']) && !empty($_POST['email']))
 			{
 				$userManager = new UserManager();
-				$theUserAlreadyExists = $userManager->checkIfTheUserAlreadyExists($_POST['name']);
+				$theUserAlreadyExists = $userManager->checkIfTheUserAlreadyExists($userName);
 				if($theUserAlreadyExists)
 				{
 					throw new Exception("Erreur : ce pseudo est déjà pris !");
@@ -130,11 +133,10 @@ function addUser()
 				{
 					if($_POST['password1'] == $_POST['password2'])
 					{
-						$name  = $_POST['name'];
 						$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
 						$email = $_POST['email'];
 						$userManager = new UserManager();
-						$affectedLines = $userManager->setUser($name, $password, $email);
+						$affectedLines = $userManager->setUser($userName, $password, $email);
 						if($affectedLines == false)
 						{
 							throw new Exception('Impossible d\'ajouter l\'utilisateur en base de données !');
@@ -164,7 +166,7 @@ function signIn()
 {	
 	if(isset($_POST['name']) && !empty($_POST['name']) && isset($_POST['password']) && !empty($_POST['password']))
 	{
-		$name = $_POST['name'];
+		$name = htmlspecialchars($_POST['name']);
 		$password = $_POST['password'];
 		$userManager = new UserManager();
 		$user = $userManager->getUser($name);

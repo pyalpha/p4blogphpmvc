@@ -30,7 +30,7 @@
 							<tr>
 								<td scope="row"><input type="checkbox" name="checked_comment_id[]" value="<?= $data['id']; ?>"></td>
 								<th scope="row"><?= $data['author']?></th>
-								<td scope="row"><?= $data['comment_excerpt']?></td>
+								<td scope="row"><?= $data['comment_excerpt']?><a href="index.php?action=comment&id=<?= $data['comment_id']; ?>">[...]</a></td>
 								<td scope="row"><?= $data['comment_date']?></td>
 								<td scope="row"><?= $data['reported_by']?></td>
 								<td scope="row"><?= $data['reason']?></td>

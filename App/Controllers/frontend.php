@@ -120,26 +120,35 @@ function addUser()
 		{
 			if(!empty($_POST['name']) && !empty($_POST['password1']) && !empty($_POST['password2']) && !empty($_POST['email']))
 			{
-				if($_POST['password1'] == $_POST['password2'])
+				$userManager = new UserManager();
+				$theUserAlreadyExists = $userManager->checkIfTheUserAlreadyExists($_POST['name']);
+				if($theUserAlreadyExists)
 				{
-					$name  = $_POST['name'];
-					$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
-					$email = $_POST['email'];
-					$userManager = new UserManager();
-					$affectedLines = $userManager->setUser($name, $password, $email);
-					if($affectedLines == false)
-					{
-						throw new Exception('Impossible d\'ajouter l\'utilisateur en base de données !');
-					}
-					else
-					{
-						header('Location: index.php');
-					}			
+					throw new Exception("Erreur : ce pseudo est déjà pris !");
 				}
 				else
 				{
-					throw new Exception('Erreur : les mots de passe ne correspondent pas.');
-				} 
+					if($_POST['password1'] == $_POST['password2'])
+					{
+						$name  = $_POST['name'];
+						$password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
+						$email = $_POST['email'];
+						$userManager = new UserManager();
+						$affectedLines = $userManager->setUser($name, $password, $email);
+						if($affectedLines == false)
+						{
+							throw new Exception('Impossible d\'ajouter l\'utilisateur en base de données !');
+						}
+						else
+						{
+							header('Location: index.php');
+						}			
+					}
+					else
+					{
+						throw new Exception('Erreur : les mots de passe ne correspondent pas.');
+					} 
+				}
 			}
 			else
 			{

@@ -2,8 +2,18 @@
 
 $title = 'Commentaire';
 ob_start(); ?>
-<h1>Commentaire</h1>
-<?= $comment['author'] . ' : '. $comment['comment']; ?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Commentaire</h1>
+            <?= 'Par '.'<span class="blue"><b>'.$comment['author'].'</b></span>'.' le '.$comment['comment_date_fr'];?>
+        </div>
+        <div class="col-md-12">
+            <?= $comment['comment']; ?>
+        </div>
+    </div>
+</div>
 
 
 <?php

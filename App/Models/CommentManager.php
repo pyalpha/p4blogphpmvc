@@ -32,7 +32,7 @@ class CommentManager extends Manager
 	public function getComment($comment_id)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('SELECT * FROM comments WHERE id = :comment_id');
+		$query = $db->prepare('SELECT *,  DATE_FORMAT(comment_date, \'%d/%m/%Y à %H:%i\') AS comment_date_fr FROM comments WHERE id = :comment_id');
 		$query->bindValue(':comment_id', $comment_id, PDO::PARAM_INT);
 		$query->execute();
 		$comment = $query->fetch();

@@ -37,7 +37,7 @@
       </div>
     </div>
 
-		<hr>
+		
 		
 		<?php
 		if(empty($_SESSION) && !isset($_SESSION['id']) && !isset($_SESSION['name']) && !isset($_SESSION['rank']))
@@ -62,7 +62,6 @@
 										<input type="password" name="password"  class="form-control" placeholder="Mot de passe" />
 									</div>
 									<button type="submit" class="btn btn-primary">Se connecter</button>
-									<a href="index.php?action=forgotten_password">Mot de passe oublié ?</a>
 								</form>
 							</div>
 						</div>

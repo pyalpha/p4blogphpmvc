@@ -29,14 +29,13 @@
 
   <body>
 
-    <? getMenu(); ?>
+    <?= getMenu(); ?>
 
-    <!-- Main Content -->
-    <div class="container">
+    <div class="mt-10">
       <?= $content ?>
     </div>
 
-    <hr>
+    
 
     <footer class="p-2 text-center">© Jean Forteroche - 2018</footer>
 

@@ -11,8 +11,8 @@ ob_start();?>
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Jean FORTEROCHE</h1>
-              <span class="subheading">BILLET SIMPLE POUR L'ALASKA</span>
-              <button><a href="index.php?action=listPosts" class="btn btnConsulterPage">Lire le roman</a></button>
+              <span class="subheading">UN BILLET SIMPLE POUR L'ALASKA</span>
+              <a href="index.php?action=listPosts" class="btn btn-primary">Lire le roman</a>
             </div>
           </div>
         </div>

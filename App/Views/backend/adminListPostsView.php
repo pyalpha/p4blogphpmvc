@@ -5,64 +5,66 @@ $title = "Panneau d'administration";
 	<div id="dashboard" class="container">
 		<div class="row">
 			<div class="col-12">
-				
-				<h1 class="text-center mt-6 blue">Panneau d'administration</h1>
-				
-
-				<table class="table mt-5">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Modifier</th>
-							<th scope="col">Contenu</th>
-							<th scope="col">Date de publication</th>
-						</tr>
-					</thead>
-					<tbody>
-						
+				<h1 class="text-center blue">Panneau d'administration</h1>
+				<div class="table-responsive">
 					
-						<form method="POST" action="index.php?access=admin&interface=delete_post">
-						<?php
-						while($post = $posts->fetch())
-						{
-							?>
+					<table class="table table-striped custab">
+						<thead>
 							<tr>
-								<td scope="row"><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
-								<td scope="row"><a href="index.php?access=admin&interface=edit&id=<?= $post['id'] ?>"><i class="fas fa-edit blue"></i></a></td>
-								<td scope="row"><?= strip_tags($post['excerpt']); ?><a href="index.php?action=post&id=<?=$post['id']?>">[...]</a></td>
-								<td scope="row">Le <?= $post['creation_date']; ?></td>
+								<th scope="col">Titre</th>
+								<th scope="col">Contenu</th>
+								<th scope="col">Date de publication</th>
+								<th scope="col">Action</th>
+								<th scope="col">Sélectionner</th>
 							</tr>
+						</thead>
+						<tbody>
+							
+						
+							<form method="POST" action="index.php?access=admin&interface=delete_post">
 							<?php
-						}
-						$posts->closeCursor(); // end of the query
-						?>
-
-					<br/>
-					</tbody>
-				</table>
-							<input type="submit" value="Effacer les articles" class="btn btn-danger mb-3">
-						</form>
-
-
-				<p>Pages
-					<?php
-					for ($i=1; $i < $nombreDePages; $i++) { 
-						if($i == $pageCourante)
-						{
-							echo $i;
-						}
-						else
-						{
+							while($post = $posts->fetch())
+							{
+								?>
+								<tr>
+									<td scope="row"><a class="title-table-dashboard" href="index.php?action=post&id=<?=$post['id']?>"><?= strip_tags($post['title']); ?></a></td>
+									<td scope="row"><?= strip_tags($post['excerpt']); ?></td>
+									<td scope="row">Le <?= $post['creation_date']; ?></td>
+									<td class="text-center"><a href="index.php?access=admin&interface=edit&id=<?= $post['id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modifier</a><br><a href="index.php?access=admin&interface=delete&id=<?= $post['id'] ?>"><i class="fa fa-trash " aria-hidden="true"></i> Supprimer</a></td>
+									<td scope="row"><input type="checkbox" name="checked_post_id[]" value="<?= $post['id']; ?>"></td>
+								</tr>
+								<?php
+							}
+							$posts->closeCursor(); // end of the query
 							?>
-						<a href="index.php?access=admin&interface=dashboard&page=<?= $i ?>"><?= $i ?></a>
+
+						<br/>
+						</tbody>
+					</table>
+								<input type="submit" value="Effacer les articles sélectionnés" class="btn btn-danger mb-3">
+							</form>
+
+
+					<p>Pages
 						<?php
+						for ($i=1; $i < $nombreDePages; $i++) { 
+							if($i == $pageCourante)
+							{
+								echo $i;
+							}
+							else
+							{
+								?>
+							<a href="index.php?access=admin&interface=dashboard&page=<?= $i ?>"><?= $i ?></a>
+							<?php
+							}
 						}
-					}
-					?>
-				</p>
-				<a href="index.php?access=admin&interface=createNewArticle" class="btn btn-success">Ajouter un article</a>
-				<a href="index.php?access=admin&interface=reported_comments" class="btn btn-primary">Commentaires signalés</a><br>
-				
+						?>
+					</p>
+					<a href="index.php?access=admin&interface=createNewArticle" class="btn btn-success">Ajouter un article</a>
+					<a href="index.php?access=admin&interface=reported_comments" class="btn btn-primary">Commentaires signalés</a><br>
+					
+				</div>
 			</div>
 		</div>
 	</div>

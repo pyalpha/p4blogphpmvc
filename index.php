@@ -184,6 +184,19 @@ try
 				throw new Exception("Erreur : aucun identifiant de billet envoyé !\nImpossible d'éditer le message.");
 			}
 		}
+
+		else if($_GET['interface'] == 'delete')
+		{
+			if(isset($_GET['id']) && $_GET['id'] > 0)
+			{
+				removeOnePost();
+			}
+			else
+			{
+				throw new Exception("Erreur : aucun identifiant de billet envoyé !\nImpossible de supprimer l'article.");
+			}
+		}
+
 		else if ($_GET['interface'] == 'delete_post')
 		{
 			

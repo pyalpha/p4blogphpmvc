@@ -94,6 +94,24 @@ function updatePost($postId, $postContent)
 		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
 	}	
 }
+
+
+function removeOnePost()
+{
+	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		$postManager = new PostManager();
+		$postContent = $postManager->deletePost($_GET['id']);
+		header('Location:index.php?access=admin&interface=dashboard');
+	} 
+	else
+	{
+		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
+	}
+		
+}
+
+
 function removePost($checked_posts_id)
 {
 	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')

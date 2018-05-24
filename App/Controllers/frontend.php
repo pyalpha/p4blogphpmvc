@@ -11,6 +11,7 @@ require_once('App/Models/UserManager.php');
 
 
 
+
 function getIndexView()
 {
 	if(isset($_SESSION['id']) && isset($_SESSION['name']))

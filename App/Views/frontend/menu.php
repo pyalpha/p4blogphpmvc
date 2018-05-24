@@ -3,8 +3,8 @@
 function getMenu()
 {
 	ob_start();?>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-		<a class="navbar-brand" href="#"><span class="blue">J</span>ean <span class="blue">F</span>orteroche</a>
+	<nav class="navbar navbar-expand-lg navbar-center navbar-light bg-light fixed-top">
+		<a class="navbar-brand" href="index.php">Jean Forteroche</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

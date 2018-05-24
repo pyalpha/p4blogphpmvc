@@ -6,7 +6,8 @@ ob_start();
 <div class="container-fluid"><!--container-->
 	<div class="row"><!--row-->
 		<div class="col-12"><!--col-->
-			<?= $post['content']; ?>
+		    <h2><?= $post['title']; ?></h2>
+			<p><?= $post['content']; ?></p>
 		</div><!--/col -->
 	</div><!--/row-->
 

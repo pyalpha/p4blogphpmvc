@@ -10,11 +10,11 @@
 		?>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 articles">
-					<p>
-						<a href="index.php?action=post&id=<?=$data['id']?>"><h2><?= htmlspecialchars($data['title']) ?></h2></a>
-						<p><?= strip_tags($data['excerpt']); ?></p>
-						<a href="index.php?action=post&id=<?=$data['id']?>">[...] Lire la suite</a>
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<p class="post-preview">
+						<a class="card-title" href="index.php?action=post&id=<?=$data['id']?>"><h2><?= htmlspecialchars($data['title']) ?></h2></a>
+						<p class="post-subtitle"><?= strip_tags($data['excerpt']); ?></p>
+						<a class="post-meta" href="index.php?action=post&id=<?=$data['id']?>">[...] Lire la suite</a>
 					</p>
 					<span>
 						<?= 'Le '. htmlspecialchars($data['creation_date']) ?>	

@@ -470,10 +470,10 @@ header a {
 @media screen and (max-width: 760px) {
 
     table, thead, tbody, th, td, tr { 
-		/*display: block;*/
+		/
 		display: flex;
 		flex-direction: column;
-		/*width: 80vw;*/ 
+		 
 		
 		
 	}

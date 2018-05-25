@@ -3,9 +3,10 @@
 	ob_start();
 	?>
 
-	<h1 class="text-center blue mt-12 mb-6">Créer un nouvel article</h1>
+	<h1 class="text-center blue mt-12 mb-6">Créer un article</h1>
 
 	<form id="get-data-form" method="post" action="index.php?access=admin&interface=postArticle">
+	    <input id="articleContentTitle" name="articleContentTitle"></input>
 		<textarea id="articleContent" name="articleContent" class="tinymce"></textarea>
 		<input type="submit" value="Envoyer">
 	</form>

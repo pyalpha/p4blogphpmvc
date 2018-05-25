@@ -147,9 +147,9 @@ try
 		}
 		else if ($_GET['interface'] == 'postArticle')
 		{
-			if(!empty($_POST['articleContent']))
+			if(!empty($_POST['articleContent'] && $_POST['articleContentTitle']))
 			{
-				addPost($_POST['articleContent']);
+				addPost();
 			}
 			else{
 				throw new Exception("Le champ n'a pas été rempli.\nL'envoi des données est impossible.");
@@ -173,6 +173,7 @@ try
 				if(!empty($_POST['articleContent']))
 				{
 					updatePost($_GET['id'], $_POST['articleContent']);
+					
 				}
 				else
 				{

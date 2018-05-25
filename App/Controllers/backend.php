@@ -40,12 +40,14 @@ function createNewArticle()
 		throw new Exception('Erreur. Vous n\'avez pas accès à cette page.');
 	}
 }
-function addPost($postContent)
+function addPost()
 {
 	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
 	{
+		$postContentTitle = htmlspecialchars($_POST['articleContentTitle']);
+		$postContent = htmlspecialchars($_POST['articleContent']);
 		$postManager = new PostManager();
-		$affectedLines = $postManager->postPost($postContent);
+		$affectedLines = $postManager->postPost($postContentTitle, $postContent);
 		if($affectedLines == false)
 		{
 			throw new Exception('Impossible d\'ajouter le post en base de données.');

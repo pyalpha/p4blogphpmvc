@@ -10,7 +10,7 @@
 
 	<br/>
 
-	<a href="index.php?access=admin&page=dashboard">Retour au panneau d'administration</a>
+	<a href="index.php?access=admin&interface=dashboard">Retour au panneau d'administration</a>
 
 	<?php
 	$content = ob_get_clean();

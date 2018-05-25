@@ -37,18 +37,20 @@ class PostManager extends Manager
 		$query->execute();
 		return $query;
 	}
-	public function postPost($postContent)
+	public function postPost($postContentTitle, $postContent)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('INSERT INTO posts(content, creation_date) VALUES(:postContent, NOW())');
+		$query = $db->prepare('INSERT INTO posts(title, content, creation_date) VALUES(:postContentTitle, :postContent, NOW())');
+		$query->bindValue(':postContentTitle', $postContentTitle, PDO::PARAM_STR);
 		$query->bindValue(':postContent', $postContent, PDO::PARAM_STR);
 		$affectedLines = $query->execute();
 		return $affectedLines;
+		
 	}
 	public function getContentOfEditedPost($postId)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('SELECT id, content FROM posts WHERE id = :postId');
+		$query = $db->prepare('SELECT id, title, content FROM posts WHERE id = :postId');
 		$query->bindValue(':postId', $postId, PDO::PARAM_STR);
 		$query->execute();
 		$postContent = $query->fetch();

@@ -45,7 +45,7 @@ function addPost()
 	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
 	{
 		$postContentTitle = htmlspecialchars($_POST['articleContentTitle']);
-		$postContent = htmlspecialchars($_POST['articleContent']);
+		$postContent = $_POST['articleContent'];
 		$postManager = new PostManager();
 		$affectedLines = $postManager->postPost($postContentTitle, $postContent);
 		if($affectedLines == false)

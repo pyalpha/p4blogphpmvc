@@ -1,5 +1,6 @@
 <?php
-$title = 'Article';
+//$title = 'Article';
+$title = htmlspecialchars($post['title']);
 ob_start();
 ?>
 
@@ -56,7 +57,7 @@ ob_start();
 						{
 							if($_SESSION['rank'] == 'default_user' || $_SESSION['rank'] == 'admin')
 							{
-								?><a data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fas fa-flag orange fa-1_5x"></i></a>
+								?><a data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fa fa-flag" aria-hidden="true"></i></a>
 					
 								
 					<!-- Modal Report Comment-->

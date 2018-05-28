@@ -125,7 +125,7 @@
                 </a>
               </li>
             </ul>
-            <p class="copyright text-muted">Copyright &copy; RAMDI.FR 2018</p>
+            <p class="copyright text-muted text-center">Copyright &copy; RAMDI.FR 2018</p>
           </div>
         </div>
       </div>

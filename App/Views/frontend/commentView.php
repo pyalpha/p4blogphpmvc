@@ -7,7 +7,7 @@ ob_start(); ?>
     <div class="row">
         <div class="col-md-12">
             <h1>Commentaire</h1>
-            <?= 'Par '.'<span class="blue"><b>'.$comment['author'].'</b></span>'.' le '.$comment['comment_date_fr'];?>
+            <?= '<span><b>'.$comment['author'].'</b></span>'.' le '.$comment['comment_date_fr'];?>
         </div>
         <div class="col-md-12">
             <?= $comment['comment']; ?>

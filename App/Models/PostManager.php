@@ -31,7 +31,7 @@ class PostManager extends Manager
 	public function getPostsPreviews($depart, $postsPerPage)
 	{
 		$db = $this->dbConnect();
-		$query = $db->prepare('SELECT id, LEFT(content, 50) as excerpt, DATE_FORMAT(creation_date, \'%d/%m/%Y à %H:%i\') as creation_date, title as title FROM posts LIMIT :depart, :postsPerPage');
+		$query = $db->prepare('SELECT id, LEFT(content, 150) as excerpt, DATE_FORMAT(creation_date, \'%d/%m/%Y à %H:%i\') as creation_date, title as title FROM posts LIMIT :depart, :postsPerPage');
 		$query->bindValue(':depart', $depart, PDO::PARAM_INT);
 		$query->bindValue(':postsPerPage', $postsPerPage, PDO::PARAM_INT);
 		$query->execute();

@@ -1,11 +1,11 @@
 <?php
-	$title = 'Commentaires signalés';
+	$title = 'Liste des commentaires signalés';
 	ob_start();
 	?>
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h1 class="text-center blue mt-6">Commentaires signalés</h1>
+				<h1 class="text-center">Liste des commentaires signalés</h1>
 
 				<table class="table mt-5">
 					<thead>
@@ -61,6 +61,7 @@
 
 						<input type="submit" value="Effacer la sélection" class="btn btn-danger">
 					</form>
+					<a class="btn btn-info" href="index.php?access=admin&interface=dashboard">Retour au Tableau de bord</a>
 
 			</div>
 		</div>

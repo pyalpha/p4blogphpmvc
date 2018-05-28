@@ -5,16 +5,16 @@ ob_start();
 ?>
 
 <div class="container-fluid"><!--container-->
-	<div class="row"><!--row-->
-		<div class="col-12"><!--col-->
-		    <h2><?= $post['title']; ?></h2>
+	<div class="row">
+		<div class="col-12">
+		    <h1 class="mt-4"><?= $post['title']; ?></h1>
 			<p><?= $post['content']; ?></p>
-		</div><!--/col -->
-	</div><!--/row-->
+		</div>
+	</div>
 
-	<div class="row"><!--row-->
-		<div class="col-12">	<!--col-->
-			<h2 class="blue">Commentaires (<?= $numberOfComments ?>)</h2>
+	<div class="row">
+		<div class="col-12">
+			<h2 class="card-header">Commentaires (<?= $numberOfComments ?>)</h2>
 
 			<?php
 			if(!empty($_SESSION) && isset($_SESSION['rank']))
@@ -22,14 +22,14 @@ ob_start();
 				if($_SESSION['rank'] == 'default_user' || $_SESSION['rank'] == 'admin')
 				{
 					?>
-					<form action="index.php?action=addComment&id=<?= $post['id'] ?>" method="post">
-						<div>
-							<textarea id="comment" class="mt-3" name="comment" placeholder="Laisser un commentaire"></textarea>
-						</div>
-						<div>
-							<input type="submit" class="btn btn-primary pl-5 pr-5 mt-3 mb-3" />
-						</div>
-					</form>
+					<div class="card-body">
+						<form action="index.php?action=addComment&id=<?= $post['id'] ?>" method="post">
+							<div class="form-group">
+								<textarea class="form-control" rows="3" id="comment" class="mt-3" name="comment" placeholder="Laisser un commentaire"></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary">Valider</button>
+						</form>
+					</div>
 					<?php
 				}
 				else
@@ -47,50 +47,51 @@ ob_start();
 			while($comment = $comments->fetch())
 			{
 			?>
-				<div class="row mt-4">
-					<div class="col-12 col-lg-2">
-						<?= 'Par '.'<span class="blue"><b>'.$comment['author'].'</b></span>'.' le '.$comment['comment_date_fr'];?>
-					</div>
-					<div class="col-12 col-lg-10">
-						<?php
-						if(!empty($_SESSION) && isset($_SESSION['rank'])) 
-						{
-							if($_SESSION['rank'] == 'default_user' || $_SESSION['rank'] == 'admin')
-							{
-								?><a data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fa fa-flag" aria-hidden="true"></i></a>
-					
-								
-					<!-- Modal Report Comment-->
-					<div class="modal fade" id="ModalReportComment<?=$comment['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title orange" id="exampleModalLabel">Signaler un commentaire</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<form method="post" action="index.php?action=report_comment&post_id=<?=$_GET['id'];?>&comment_id=<?=$comment['id'];?>">
-										<label>Votre pseudo</label>
-										<p class="fakeInput col-12 inputPaddingFix"><?= $_SESSION['name']; ?></p>
-										<label>Motif du signalement</label><br/>
-										<textarea placeholder="Exemple : injures, incitation à la haine, racisme..." name="reason" class="col-12 inputPaddingFix"></textarea><br/>
-										<input type="submit" value="Signaler" class="report-btn mt-4" />
-									</form>
-								</div>
+			<div class="col-12">
+				<div class="media comment-box">
+					<div class="media-body">
+						<h4 class="media-heading"><?= '<span class="author-comment">'.$comment['author'].'</span>'.' le '.$comment['comment_date_fr'];?>
+							<div>
+								<?php
+									if(!empty($_SESSION) && isset($_SESSION['rank'])) 
+										{
+											if($_SESSION['rank'] == 'default_user' || $_SESSION['rank'] == 'admin')
+											{
+												?><a class="report-comment-flag" data-toggle="modal" href="#ModalReportComment<?=$comment['id'];?>"><i class="fa fa-flag" aria-hidden="true"></i></a>
+									
+												
+									<!-- Modal Report Comment-->
+									<div class="modal fade" id="ModalReportComment<?=$comment['id'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Signaler un commentaire</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form method="post" action="index.php?action=report_comment&post_id=<?=$_GET['id'];?>&comment_id=<?=$comment['id'];?>">
+														<label>Votre pseudo</label>
+														<p class="fakeInput col-12 inputPaddingFix"><?= $_SESSION['name']; ?></p>
+														<label>Motif du signalement</label><br/>
+														<textarea placeholder="une description concernant le motif" name="reason" class="col-12 inputPaddingFix"></textarea><br/>
+														<input type="submit" value="Signaler" class="btn btn-danger" />
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+											<?php
+										} // end of rank check
+									}
+								?>
 							</div>
-						</div>
-					</div>
-							<?php
-						} // end of rank check
-					} // end of check if connected and if rank is set
-					?>
-					</div>
-					<div class="col-12 comment">
-						<?= $comment['comment']; ?>	
+						</h4>
+						<p><?= $comment['comment']; ?></p>
 					</div>
 				</div>
+			</div>
 			<?php
 			} // end of the while loop
 			$comments->closeCursor(); // end of the query

@@ -1,6 +1,5 @@
 <?php //controller back-end
 
-//namespace App\Controllers;
 
 require_once('App/Models/PostManager.php');
 require_once('App/Models/CommentManager.php');

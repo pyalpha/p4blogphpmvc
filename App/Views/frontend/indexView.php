@@ -11,6 +11,7 @@ ob_start();?>
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>Jean FORTEROCHE</h1>
+              <p><?= $msgDeBienvenue ?></p>
               <span class="subheading">UN BILLET SIMPLE POUR L'ALASKA</span>
               <a href="index.php?action=listPosts" class="btn btn-primary">Lire le roman</a>
             </div>

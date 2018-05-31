@@ -1,6 +1,5 @@
 <?php //controller front-end
 
-//namespace Controllers;
 
 require('vendor/autoload.php');
 
@@ -10,17 +9,15 @@ require_once('App/Models/CommentManager.php');
 require_once('App/Models/UserManager.php');
 
 
-
-
 function getIndexView()
 {
 	if(isset($_SESSION['id']) && isset($_SESSION['name']))
 	{
-		$messageDeBienvenue = "Bienvenue sur mon site,  " . $_SESSION['name'] . " !";
+		$msgDeBienvenue = "Bienvenue sur mon Blog,  " . $_SESSION['name'] . " !";
 	}
 	else
 	{
-		$messageDeBienvenue = 'Bienvenue sur mon site, Visiteur ! ';
+		$msgDeBienvenue = 'Bienvenue sur mon Blog, Visiteur ! ';
 		
 	}
 	require('App/Views/frontend/indexView.php');

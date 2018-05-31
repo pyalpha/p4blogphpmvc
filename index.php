@@ -6,7 +6,7 @@ session_start();
 
 require('App/Controllers/frontend.php');
 require('App/Controllers/backend.php');
-//require __DIR__."App/Controllers/frontend.php";
+
 
 try
 {
@@ -82,37 +82,7 @@ try
 				throw new Exception('Aucun identifiant d\'article envoyé. Impossible d\'effectuer l\'action demandée.');
 			}
 		}
-		else if($_GET['action'] == 'forgotten_password')
-		{
-			getForgottenPasswordView();
-		}
-		else if($_GET['action'] == 'send_email')
-		{
-			sendEmail();
-		}
-		else if($_GET['action'] == 'reset_password')
-		{
-			if(isset($_GET['token']) && !empty($_GET['token']))
-			{
-				getResetPasswordView();
-			}
-			else
-			{
-				throw new Exception("Erreur. Token manquant.");
-			}
-			
-		}
-		else if($_GET['action'] == 'update_password')
-		{
-			if(isset($_GET['token']) && !empty($_GET['token']))
-			{
-				updatePassword();
-			}
-			else
-			{
-				throw new Exception("Erreur. Token manquant.");
-			}	
-		}
+		
 		else if($_GET['action'] == 'add_user')
 		{
 			addUser();	

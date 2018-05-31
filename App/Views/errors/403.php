@@ -1,1 +1,0 @@
-<p class="btn btn-warning">Erreur 403 - L'acces à cette page vous est interdit</p>

@@ -1,5 +1,4 @@
 <?php
-//namespace App\Models;
 
 require_once('Manager.php');
 

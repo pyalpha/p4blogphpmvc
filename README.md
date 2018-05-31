@@ -1,1 +1,5 @@
-4eme projet de la formation "un Blog en php avec une MVC"
+4eme projet de la formation "Développeur web junior" d'OC : Créez un blog pour un écrivain !
+
+Installation :
+
+Modifier le fichier App/Models/Manager.php pour se connecter à la BD;

@@ -5,9 +5,19 @@ require_once('App/Models/PostManager.php');
 require_once('App/Models/CommentManager.php');
 require_once('App/Models/UserManager.php');
 
+function checkSession()
+{
+	if (isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	{
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function adminListPosts($pageCourante)
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postsPerPage = 5;
 		$depart = ($pageCourante-1)*$postsPerPage;
@@ -30,7 +40,7 @@ function adminListPosts($pageCourante)
 }
 function createNewArticle()
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		require('App/Views/backend/createNewArticleView.php');
 	}
@@ -41,7 +51,7 @@ function createNewArticle()
 }
 function addPost()
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postContentTitle = htmlspecialchars($_POST['articleContentTitle']);
 		$postContent = $_POST['articleContent'];
@@ -63,7 +73,7 @@ function addPost()
 }
 function editPost()
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postManager = new PostManager();
 		$postContent = $postManager->getContentOfEditedPost($_GET['id']);
@@ -77,7 +87,7 @@ function editPost()
 }
 function updatePost($postId, $postContent)
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postManager = new PostManager();
 		$affectedLines = $postManager->PostUpdatedPost($postId, $postContent);
@@ -99,7 +109,7 @@ function updatePost($postId, $postContent)
 
 function removeOnePost()
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postManager = new PostManager();
 		$postContent = $postManager->deletePost($_GET['id']);
@@ -115,7 +125,7 @@ function removeOnePost()
 
 function removePost($checked_posts_id)
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$postManager = new PostManager();
 		foreach ($checked_posts_id as $postId)
@@ -147,7 +157,7 @@ function removePost($checked_posts_id)
 }
 function listReportedComments($pageCourante)
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$reportedCommentsPerPage = 5;
 		$depart = ($pageCourante-1)*$reportedCommentsPerPage;
@@ -164,7 +174,7 @@ function listReportedComments($pageCourante)
 }
 function removeComment($checked_comments_id)
 {
-	if(isset($_SESSION['id']) && isset($_SESSION['name']) && isset($_SESSION['rank']) && $_SESSION['rank'] == 'admin')
+	if(checkSession() == true)
 	{
 		$commentManager = new CommentManager();
 		foreach ($checked_comments_id as $comment_id)

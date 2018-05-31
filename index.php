@@ -1,7 +1,5 @@
 <?php
 
-use Controllers\getIndexView;
-
 session_start();
 
 require('App/Controllers/frontend.php');
